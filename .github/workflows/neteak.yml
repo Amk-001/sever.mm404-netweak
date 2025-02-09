@@ -1,0 +1,21 @@
+name: Netweak Agent Setup
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  setup_netweak:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Netweak Agent
+        run: |
+          sudo curl -sSL netweak.sh | bash -s ${{ secrets.NETWEAK_API_KEY }}
+          
+      - name: Verify Installation
+        run: netweak --status
